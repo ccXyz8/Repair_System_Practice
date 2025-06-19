@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.repairsystembackend.user.mapper.UserMapper">
+
+
+    <insert id="insertRepair">
+
+    </insert>
+
+    <update id="updateRepair">
+
+    </update>
+
+    <select id="getUserById" resultType="org.example.repairsystembackend.user.entity.User">
+
+    </select>
+
+    <select id="getRepairByOrderId" resultType="org.example.repairsystembackend.user.entity.Repair">
+
+    </select>
+
+    <select id="getRepairByUserId" resultType="org.example.repairsystembackend.user.entity.Repair">
+
+    </select>
+
+
+</mapper>
