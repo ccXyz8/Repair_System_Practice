@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.repairsystembackend.repairman.mapper.RepairmanMapper">
+
+    <resultMap id="baseRepair" type="org.example.repairsystembackend.user.entity.Repair">
+        <id column="repair_id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="repairman_id" property="repairmanId"/>
+        <result column="description" property="description"/>
+        <result column="device_info" property="deviceInfo"/>
+        <result column="picture" property="picture"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="status" property="status"/>
+        <result column="feedback" property="feedback"/>
+    </resultMap>
+
+    <update id="updateRepairman">
+
+    </update>
+
+    <update id="updateRepair">
+
+    </update>
+
+    <update id="updateRepairStatus">
+
+    </update>
+
+    <select id="getRepairmanByRepairmanId" resultMap="baseRepair">
+
+
+    </select>
+
+    <select id="getAllRepairs" resultMap="baseRepair">
+
+    </select>
+
+    <select id="getRepairsByRepairId" resultMap="baseRepair">
+
+    </select>
+
+
+</mapper>

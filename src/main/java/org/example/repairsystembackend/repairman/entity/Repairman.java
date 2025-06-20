@@ -10,5 +10,5 @@ public class Repairman{
     private int phone;
     private String department;
     private Double rating ;
-
+    private int permission;
 }
