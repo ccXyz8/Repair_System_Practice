@@ -2,7 +2,7 @@ package org.example.repairsystembackend.utils.url;
 
 public final class UrlConstants {
 
-    public static final String URL_V1_VERSION_PREFIX        = "/api?v1";
+    public static final String URL_V1_VERSION_PREFIX        = "/api/v1";
 
     public static final String ANONYMOUS_URL_PREFIX         = "anonymous";
 

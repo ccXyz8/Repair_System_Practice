@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.example.repairsystembackend.user.mapper.UserMapper">
+<mapper namespace="org.example.repairsystembackend.repairman.mapper.RepairmanMapper">
 
-    <resultMap id="baseUser" type="org.example.repairsystembackend.user.entity.User">
-        <id column="user_id" property="userId"/>
+    <resultMap id="baseRepairman" type="org.example.repairsystembackend.repairman.entity.Repairman">
+        <id column="user_id" property="repairmanId"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
         <result column="phone" property="phone"/>
@@ -26,38 +26,40 @@
         <result column="feedback" property="feedback"/>
     </resultMap>
 
-    <insert id="insertRepair" parameterType="org.example.repairsystembackend.user.entity.Repair">
-        insert into repair
-            (user_id,repairman_id,description,device_info,picture,start_time,status)
-        values
-            (#{userId},#{repairmanId},#{description},#{deviceInfo},#{picture},#{startTime},#{status})
-    </insert>
-    <insert id="insertUser">
+    <insert id="insertRepairman">
         insert into user
             (username,password,phone,department,permission)
         values
             (#{username},#{password},#{phone},#{department},#{permission})
     </insert>
 
-    <update id="updateRepair">
-        update repair set
-            end_time = #{endTime},
-            feedback = #{feedback}
-        where
-            repair_id = #{repairId}
-    </update>
-
-    <update id="updateUser" parameterType="org.example.repairsystembackend.user.entity.User">
+    <update id="updateRepairman" parameterType="org.example.repairsystembackend.repairman.entity.Repairman">
         update user set
-            username = #{username},
-            password = #{password},
-            phone = #{phone},
+            username   = #{username},
+            password   = #{password},
+            phone      = #{phone},
             department = #{department}
         where
-            user_id = #{userId}
+            user_id    = #{repairmanId}
     </update>
 
-    <select id="getUserById" resultMap="baseUser">
+    <update id="updateRepair">
+        update repair set
+            repairman_id = #{repairmanId}
+            status       = 修理中
+        where
+            repair_id    = #{repairId}
+    </update>
+
+    <update id="updateRepairStatus">
+        update repair set
+            status    = 修理结束
+            endTime = #{endTime}
+        where
+            repair_id =#{repairId}
+    </update>
+
+    <select id="getRepairmanByRepairmanId" resultMap="baseRepair">
         select
             user_id,
             username,
@@ -68,10 +70,10 @@
         from
             user
         where
-            user_id = #{userId}
+            user_id = #{repairmanId}
     </select>
 
-    <select id="getRepairByOrderId" resultMap="baseRepair">
+    <select id="getAllRepairs" resultMap="baseRepair">
         select
             repair_id,
             user_id,
@@ -86,10 +88,10 @@
         from
             repair
         where
-            repair_id = #{repairId}
+            status=未修理
     </select>
 
-    <select id="getRepairByUserId" resultMap="baseRepair">
+    <select id="getRepairsByRepairmanId" resultMap="baseRepair">
         select
             repair_id,
             user_id,
@@ -104,10 +106,10 @@
         from
             repair
         where
-            user_id = #{userId}
+            repairman_id = #{repairmanId}
     </select>
 
-    <select id="getUserByUsername" resultMap="baseUser">
+    <select id="getRepairmanByUsername" resultMap="baseRepairman">
         select
             user_id,
             username,
@@ -118,22 +120,8 @@
         from
             user
         where
-            username = #{username}
+            username=#{username}
     </select>
 
-    <select id="getRepairs" resultMap="baseRepair">
-        select
-            repair_id,
-            user_id,
-            repairman_id,
-            description,
-            device_info,
-            picture,
-            start_time,
-            end_time,
-            status,
-            feedback
-        from
-            repair
-    </select>
+
 </mapper>

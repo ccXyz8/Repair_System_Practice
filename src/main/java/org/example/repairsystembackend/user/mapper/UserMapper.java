@@ -4,18 +4,29 @@ import org.apache.ibatis.annotations.Mapper;
 import org.example.repairsystembackend.user.entity.Repair;
 import org.example.repairsystembackend.user.entity.User;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
 
     //获取自身信息
     User getUserById(int userId);
 
-    Repair getRepairByOrderId(int orderId);
+    User getUserByUsername(String username);
 
-    Repair getRepairByUserId(int userId);
+    int insertUser(User user);
 
-    void insertRepair(Repair repair);
+    int updateUser(User user);
 
-    void updateRepair(int userId, int orderId,String feedback,Double rating);
+    Repair getRepairByOrderId(int repairId);
+
+    List<Repair> getRepairByUserId(int userId);
+
+    List<Repair> getRepairs();
+
+    int insertRepair(Repair repair);
+
+    int updateRepair(int repairId, LocalDateTime endTime, String feedback);
 
 }

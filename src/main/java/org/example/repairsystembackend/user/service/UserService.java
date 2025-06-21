@@ -1,19 +1,35 @@
 package org.example.repairsystembackend.user.service;
 
 
+import io.minio.GetObjectResponse;
 import org.example.repairsystembackend.user.entity.Repair;
 import org.example.repairsystembackend.user.entity.User;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.OutputStream;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public interface UserService {
 
     User findByUsername(String username);
 
-    String modifyUser(User user);
+    User findByUserId(int userId);
 
-    String applyRepair(Repair repair);
+    int insertUser(User user);
 
-    Repair trackRepair(int userId);
+    int modifyUser(User user);
 
-    String feedBack(int userId, int orderId,String feedback,Double rating);
+    int applyRepair(Repair repair);
 
+    List<Repair> trackRepair(int userId);
+
+    List<Repair> getRepairs();
+
+    int feedBack(int repairId, LocalDateTime endTime, String feedback);
+
+    boolean uploadImage(MultipartFile file);
+
+    void getImage(OutputStream stream, String filename) throws Exception;
 }

@@ -50,7 +50,6 @@ public class JsonBody {
             context = new HashMap<>();
         }
         context.put(key, value);
-
         return this;
     }
 
