@@ -5,7 +5,7 @@
 <mapper namespace="org.example.repairsystembackend.user.mapper.UserMapper">
 
     <resultMap id="baseUser" type="org.example.repairsystembackend.user.entity.User">
-        <id column="user_id" property="id"/>
+        <id column="user_id" property="userId"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
         <result column="phone" property="phone"/>
@@ -14,7 +14,7 @@
     </resultMap>
 
     <resultMap id="baseRepair" type="org.example.repairsystembackend.user.entity.Repair">
-        <id column="repair_id" property="id"/>
+        <id column="repair_id" property="repairId"/>
         <result column="user_id" property="userId"/>
         <result column="repairman_id" property="repairmanId"/>
         <result column="description" property="description"/>
@@ -32,13 +32,19 @@
         values
             (#{userId},#{repairmanId},#{description},#{deviceInfo},#{picture},#{startTime},#{status})
     </insert>
+    <insert id="insertUser">
+        insert into user
+            (username,password,phone,department,permission)
+        values
+            (#{username},#{password},#{phone},#{department},#{permission})
+    </insert>
 
     <update id="updateRepair">
         update repair set
             end_time = #{endTime},
             feedback = #{feedback}
         where
-            repair_id = #{orderId}
+            repair_id = #{repairId}
     </update>
 
     <update id="updateUser" parameterType="org.example.repairsystembackend.user.entity.User">
@@ -59,6 +65,8 @@
             phone,
             department,
             permission
+        from
+            user
         where
             user_id = #{userId}
     </select>
@@ -75,8 +83,10 @@
             end_time,
             status,
             feedback
+        from
+            repair
         where
-            repair_id = #{orderId}
+            repair_id = #{repairId}
     </select>
 
     <select id="getRepairByUserId" resultMap="baseRepair">
@@ -91,6 +101,8 @@
             end_time,
             status,
             feedback
+        from
+            repair
         where
             user_id = #{userId}
     </select>
@@ -103,6 +115,8 @@
             phone,
             department,
             permission
+        from
+            user
         where
             username = #{username}
     </select>
@@ -119,5 +133,7 @@
             end_time,
             status,
             feedback
+        from
+            repair
     </select>
 </mapper>

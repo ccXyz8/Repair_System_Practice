@@ -4,8 +4,17 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.repairsystembackend.repairman.mapper.RepairmanMapper">
 
+    <resultMap id="baseRepairman" type="org.example.repairsystembackend.repairman.entity.Repairman">
+        <id column="user_id" property="repairmanId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="phone" property="phone"/>
+        <result column="department" property="department"/>
+        <result column="permission" property="permission"/>
+    </resultMap>
+
     <resultMap id="baseRepair" type="org.example.repairsystembackend.user.entity.Repair">
-        <id column="repair_id" property="id"/>
+        <id column="repair_id" property="repairId"/>
         <result column="user_id" property="userId"/>
         <result column="repairman_id" property="repairmanId"/>
         <result column="description" property="description"/>
@@ -17,29 +26,101 @@
         <result column="feedback" property="feedback"/>
     </resultMap>
 
-    <update id="updateRepairman">
+    <insert id="insertRepairman">
+        insert into user
+            (username,password,phone,department,permission)
+        values
+            (#{username},#{password},#{phone},#{department},#{permission})
+    </insert>
 
+    <update id="updateRepairman" parameterType="org.example.repairsystembackend.repairman.entity.Repairman">
+        update user set
+            username   = #{username},
+            password   = #{password},
+            phone      = #{phone},
+            department = #{department}
+        where
+            user_id    = #{repairmanId}
     </update>
 
     <update id="updateRepair">
-
+        update repair set
+            repairman_id = #{repairmanId}
+            status       = 修理中
+        where
+            repair_id    = #{repairId}
     </update>
 
     <update id="updateRepairStatus">
-
+        update repair set
+            status    = 修理结束
+            endTime = #{endTime}
+        where
+            repair_id =#{repairId}
     </update>
 
     <select id="getRepairmanByRepairmanId" resultMap="baseRepair">
-
-
+        select
+            user_id,
+            username,
+            password,
+            phone,
+            department,
+            permission
+        from
+            user
+        where
+            user_id = #{repairmanId}
     </select>
 
     <select id="getAllRepairs" resultMap="baseRepair">
-
+        select
+            repair_id,
+            user_id,
+            repairman_id,
+            description,
+            device_info,
+            picture,
+            start_time,
+            end_time,
+            status,
+            feedback
+        from
+            repair
+        where
+            status=未修理
     </select>
 
-    <select id="getRepairsByRepairId" resultMap="baseRepair">
+    <select id="getRepairsByRepairmanId" resultMap="baseRepair">
+        select
+            repair_id,
+            user_id,
+            repairman_id,
+            description,
+            device_info,
+            picture,
+            start_time,
+            end_time,
+            status,
+            feedback
+        from
+            repair
+        where
+            repairman_id = #{repairmanId}
+    </select>
 
+    <select id="getRepairmanByUsername" resultMap="baseRepairman">
+        select
+            user_id,
+            username,
+            password,
+            phone,
+            department,
+            permission
+        from
+            user
+        where
+            username=#{username}
     </select>
 
 

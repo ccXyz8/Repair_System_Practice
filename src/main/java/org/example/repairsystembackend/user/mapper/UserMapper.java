@@ -15,9 +15,11 @@ public interface UserMapper {
 
     User getUserByUsername(String username);
 
+    int insertUser(User user);
+
     int updateUser(User user);
 
-    Repair getRepairByOrderId(int orderId);
+    Repair getRepairByOrderId(int repairId);
 
     List<Repair> getRepairByUserId(int userId);
 
@@ -25,6 +27,6 @@ public interface UserMapper {
 
     int insertRepair(Repair repair);
 
-    int updateRepair(int orderId, String endTime, String feedback);
+    int updateRepair(int repairId, LocalDateTime endTime, String feedback);
 
 }

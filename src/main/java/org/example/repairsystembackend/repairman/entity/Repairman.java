@@ -4,11 +4,10 @@ import lombok.Data;
 
 @Data
 public class Repairman{
-    private int id;
+    private int repairmanId;
     private String username;
     private String password;
     private int phone;
     private String department;
-    private Double rating ;
     private int permission;
 }

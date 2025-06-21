@@ -17,6 +17,8 @@ public interface UserService {
 
     User findByUserId(int userId);
 
+    int insertUser(User user);
+
     int modifyUser(User user);
 
     int applyRepair(Repair repair);
@@ -25,7 +27,7 @@ public interface UserService {
 
     List<Repair> getRepairs();
 
-    int feedBack(int orderId, String endTime, String feedback);
+    int feedBack(int repairId, LocalDateTime endTime, String feedback);
 
     boolean uploadImage(MultipartFile file);
 

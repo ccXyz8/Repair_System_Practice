@@ -5,7 +5,6 @@ import io.minio.GetObjectResponse;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.errors.MinioException;
-import org.apache.commons.compress.utils.IOUtils;
 import org.example.repairsystembackend.user.entity.Repair;
 import org.example.repairsystembackend.user.entity.User;
 import org.example.repairsystembackend.user.mapper.UserMapper;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -46,6 +44,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int insertUser(User user) {
+        return userMapper.insertUser(user);
+    }
+
+    @Override
     public int modifyUser(User user) {
         return userMapper.updateUser(user);
     }
@@ -66,8 +69,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int feedBack(int orderId, String endTime, String feedback) {
-        return userMapper.updateRepair(orderId, endTime, feedback);
+    public int feedBack(int repairId, LocalDateTime endTime, String feedback) {
+        return userMapper.updateRepair(repairId, endTime, feedback);
     }
 
     public boolean uploadImage(MultipartFile file) {
@@ -94,6 +97,6 @@ public class UserServiceImpl implements UserService {
                 .bucket(bucketName)
                 .object(filename)
                 .build());
-        IOUtils.copy(object,stream);
+        stream.write(object.readAllBytes());
     }
 }
